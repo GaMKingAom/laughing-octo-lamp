@@ -18,7 +18,7 @@
         <div class="container my-auto text-center">
             <h1 class="mb-1" data-bss-hover-animate="bounce" id="timer"></h1>
             <h1 class="mb-1" data-bss-hover-animate="bounce">ก่อน 5 โมงเย็น</h1>
-            <h3 class="mb-5" style="color: red;"><em>Count down to 17:00 PM<br>UTC+7 Bangkok/Asia</em></h3>
+            <h3 class="mb-5" style="color: red;"><em>Count down to 17:00 PM</em></h3>
         </div>
     </header>
     <footer class="footer text-center">
@@ -31,18 +31,20 @@
     <script src="assets/bootstrap/js/bootstrap.min.js?h=2cf0875e1daf356bc4e64c053e7a4150"></script>
     <script src="assets/js/script.min.js?h=62155b444e68031e883a0a5f583a9e7f"></script>
     <script>
-function pad(n) { return n < 10 ? '0' + n : n; }
+function pad(n) { return n < 10 ? '0' + n : n; } 
 function updateTimer() {
     const now = new Date();
-    // ปรับเป็นเวลาไทย (UTC+7) ตรงนี้สามารถตั้งชดเชย offset ได้ (7 - now.getTimezoneOffset()
-    //This is Thai time (UTC+7). You can set the offset here (7 - now.getTimezoneOffset().
+    // ปรับเป็นเวลาไทย (UTC+7) ตรงนี้สามารถตั้งชดเชย offset ได้ (7 - now.getTimezoneOffset(), now.getTimezoneOffset() > ตรงส่วนนี้คือใช้เวลาของผู้ใช้ที่เปิดเว็บเข้ามา.
+    //This is Thai time (UTC+7). You can set the offset here (7 - now.getTimezoneOffset(), now.getTimezoneOffset() > This Use Local Time zone on Client.
     const nowBkk = new Date(now.getTime() + (now.getTimezoneOffset() / 60) * 60 * 60 * 1000 - (now.getTimezoneOffset() * 60000));
     const year = nowBkk.getFullYear();
     const month = nowBkk.getMonth();
     const day = nowBkk.getDate();
+    
     // ตั้งเวลาตรงนี้เด้อ เวลาของวันนี้ (เวลาไทย) ชม, นาที, วินาที, มิลลิวินาที(ms)
     // Set the time here. Today hours, minutes, seconds, milliseconds (ms)
-    const target = new Date(year, month, day, 17, 0, 0, 0);
+
+    const target = new Date(year, month, day, 17, 0, 0, 0); //<<< ไปปรับแต่งได้ / config that
     let diff = target - nowBkk;
     let text = "";
     if (diff > 0) {
