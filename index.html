@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Home - Count Down</title>
+    <meta name="description" content="simple count down u know">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16x16.png?h=195e86bed59337033cf829bbd348fe73">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png?h=7b4b330802f8f2ff621198e9faf00c3c">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css?h=076b26af7d587c12ccdd3073bdb8e5d1">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css?h=c1087265602856b93bc71165bc9dc548">
+    <link rel="stylesheet" href="assets/css/styles.min.css?h=bf4129c90580324d15f834fd3962dca9">
+</head>
+
+<body id="page-top">
+    <header class="d-flex masthead" style="background-image:url('assets/img/bg-masthead.jpg');">
+        <div class="container my-auto text-center">
+            <h1 class="mb-1" data-bss-hover-animate="bounce" id="timer"></h1>
+            <h1 class="mb-1" data-bss-hover-animate="bounce">ก่อน 5 โมงเย็น</h1>
+            <h3 class="mb-5" id="timerFrame" style="color: rgb(25, 0, 255);"></h3>
+            <h3 class="mb-5" style="color: red;"><em>Count down to 17:00 PM<br>UTC+7 Bangkok/Asia</em></h3>
+        </div>
+    </header>
+    <footer class="footer text-center">
+        <div class="container">
+            <ul class="list-inline mb-5"></ul>
+            <p class="text-muted mb-0 small">Copyright &nbsp;© By ChananonM from PNRU</p>
+        </div><a class="scroll-to-top rounded" href="#page-top"><i class="fa fa-angle-up"></i></a>
+    </footer>
+    <script src="assets/js/jquery.min.js?h=6bcc3684f18aa21874fa709f122723cf"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js?h=2cf0875e1daf356bc4e64c053e7a4150"></script>
+    <script src="assets/js/script.min.js?h=62155b444e68031e883a0a5f583a9e7f"></script>
+    <script>
+function pad(n) { return n < 10 ? '0' + n : n; }
+
+function updateTimer() {
+    const now = new Date();
+    // ปรับเป็นเวลาไทย (UTC+7)
+    const nowBkk = new Date(now.getTime() + (now.getTimezoneOffset() / 60) * 60 * 60 * 1000 - (now.getTimezoneOffset() * 60000));
+    const year = nowBkk.getFullYear();
+    const month = nowBkk.getMonth();
+    const day = nowBkk.getDate();
+    // สร้างเป้าหมาย 17:00 ของวันนี้ (เวลาไทย)
+    const target = new Date(year, month, day, 17, 0, 0, 0);
+    let diff = target - nowBkk;
+    let text = "";
+    if (diff > 0) {
+        const h = Math.floor(diff / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
+        text = `เหลือเวลา ${pad(h)}:${pad(m)}:${pad(s)}`;
+    } else {
+        diff = Math.abs(diff);
+        const h = Math.floor(diff / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
+        text = `<span style="color:red;">เกินเวลาแล้ว</span> ${pad(h)}:${pad(m)}:${pad(s)}`;
+    }
+    document.getElementById("timer").innerHTML = text;
+}
+
+function updateFrameTimer() {
+    const now = new Date();
+    // ปรับเป็นเวลาไทย (UTC+7)
+    const nowBkk = new Date(now.getTime() + (now.getTimezoneOffset() / 60) * 60 * 60 * 1000 - (now.getTimezoneOffset() * 60000));
+    const year = nowBkk.getFullYear();
+    const month = nowBkk.getMonth();
+    const day = nowBkk.getDate();
+    // สร้างเป้าหมาย 17:00 ของวันนี้ (เวลาไทย)
+    const target = new Date(year, month, day, 18, 0, 0, 0);
+    let diff = target - nowBkk;
+    let text = "";
+    if (diff > 0) {
+        const h = Math.floor(diff / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
+        text = `ของเฟรมเหลือ ${pad(h)}:${pad(m)}:${pad(s)}`;
+    } else {
+        diff = Math.abs(diff);
+        const h = Math.floor(diff / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
+        text = `<span style="color:red;">เกินเวลาแล้ว</span> ${pad(h)}:${pad(m)}:${pad(s)}`;
+    }
+    document.getElementById("timerFrame").innerHTML = text;
+}
+
+setInterval(updateTimer, 1000);
+updateTimer();
+updateFrameTimer();
+</script>
+</body>
+
+</html>
